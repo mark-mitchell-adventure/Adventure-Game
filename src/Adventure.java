@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Adventure {
@@ -12,13 +13,24 @@ public class Adventure {
         int enemyHP = 75;
 
         String heroName= "";
+        String heroCharacter= "";
 
+        ///// READY, SET, GO!! ////////
         System.out.println("Are you ready? Y/N");
         if(input.nextLine().equalsIgnoreCase("y")){
             System.out.println("Enter your name");
             heroName = input.nextLine();
 
+            System.out.println("Would you like to be a Dark Elf, Samurai, or Canadian");
+            heroCharacter = input.nextLine();
+
+
+
+
+
+            ////// TABLE DISPLAY //////
             do {
+                System.out.println("-------" + heroCharacter + "-------     ------ Mid-Size Enemy ----");
                 System.out.println("-------" + heroName + "-------      ------- Enemy -------");
                 System.out.println("HP = " + heroHP + "                        HP = " + enemyHP);
                 System.out.println("Atk = 25                        Atk = 15");
@@ -27,10 +39,13 @@ public class Adventure {
                 System.out.println("1. Attack \n 2. Heal \n 3. Give Up");
                 int choice = input.nextInt();
 
+
+                ///// USER CHOICE ////
+
+                //// User Attack ////
                 if (choice == 1) {
                     System.out.println("you attacked the enemy");
-                    enemyHP -= heroAtk;
-
+                    enemyHP = heroAttack(enemyHP,heroAtk);
 
                 } else if (choice == 2) {
                     System.out.println("you healed");
@@ -38,17 +53,32 @@ public class Adventure {
                     System.out.println(heroHP + 20);
                     heroHP += 20;
 
-                } else {
+                }else {
                     System.out.println("you gave up you coward");
                     break;
                 }
-            }while(enemyHP > 0);
-            System.out.println("you won");
+
+                /////// ENEMY AUTO ATTACK ////
+                heroHP = enemyAttack(heroHP, enemyAtk);
 
 
+            }while(enemyHP >= 0 || heroHP >= 0);
 
+
+            ////// END OF GAME //////
+            if(enemyHP <= 0) {
+                System.out.println("You won!!!!");
+            }else if(heroHP <= 0){
+                System.out.println("You died...");
+            }
+            else{
+                System.out.println("You lost");
+            }
+
+
+            ///// DON'T WANT TO (PLAY) ////
         } else {
-            System.out.println("fine then");
+            System.out.println("Fine then. \n\n\n ::Credits::\n\n Developers: \n Mark Strange \n Mitchell Arnold \n Build 1.0 \n Special thanks to the Ceres class project for giving us the idea for the game.");
         }
 
 
@@ -56,6 +86,33 @@ public class Adventure {
 
 
     }
+
+
+
+    //////////  ATTACK METHODS!! //////////////
+    public static int heroAttack(int enemyHP, int heroAtk){
+        return enemyHP - heroAtk;
+    }
+
+
+
+    public static int enemyAttack(int heroHP, int enemyAtk){
+        Random rand = new Random();
+        int condition = rand.nextInt(3);
+        if(condition == 1){
+            System.out.println("\n--------  You lost 15HP. --------\n");
+           return heroHP - enemyAtk;
+        }else if(condition == 2){
+            System.out.println("\n-------- Super Hit!! \n You lost 30HP. --------\n");
+            return heroHP - (enemyAtk + 15);
+        }else{
+            System.out.println("\n-------- You dodged enemy attack. --------\n");
+            return heroHP;
+        }
+    }
+
+
+    //////// CHARACTER CLASS
 
 
 
