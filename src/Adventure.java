@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Adventure {
@@ -12,7 +13,7 @@ public class Adventure {
         int enemyHP = 75;
 
         String heroName= "";
-
+        String heroCharacter= "";
 
         ///// READY, SET, GO!! ////////
         System.out.println("Are you ready? Y/N");
@@ -20,12 +21,16 @@ public class Adventure {
             System.out.println("Enter your name");
             heroName = input.nextLine();
 
+            System.out.println("Would you like to be a Dark Elf, Samurai, or Canadian");
+            heroCharacter = input.nextLine();
+
 
 
 
 
             ////// TABLE DISPLAY //////
             do {
+                System.out.println("-------" + heroCharacter + "-------     ------ Mid-Size Enemy ----");
                 System.out.println("-------" + heroName + "-------      ------- Enemy -------");
                 System.out.println("HP = " + heroHP + "                        HP = " + enemyHP);
                 System.out.println("Atk = 25                        Atk = 15");
@@ -48,22 +53,25 @@ public class Adventure {
                     System.out.println(heroHP + 20);
                     heroHP += 20;
 
-                } else {
+                }else {
                     System.out.println("you gave up you coward");
                     break;
                 }
 
                 /////// ENEMY AUTO ATTACK ////
-                System.out.println("Enemy attacks! You lost 15HP.");
-//                heroHP = enemyAttack();
+                heroHP = enemyAttack(heroHP, enemyAtk);
 
-            }while(enemyHP > 0);
+
+            }while(enemyHP >= 0 || heroHP >= 0);
 
 
             ////// END OF GAME //////
-            if(enemyHP == 0) {
+            if(enemyHP <= 0) {
                 System.out.println("You won!!!!");
-            }else{
+            }else if(heroHP <= 0){
+                System.out.println("You died...");
+            }
+            else{
                 System.out.println("You lost");
             }
 
@@ -88,16 +96,24 @@ public class Adventure {
 
 
 
-//    public static int enemyAttack(int atk1, int atk2, int atk3){
-//        if(atk1 == 1){
-//           return heroHP - enemyAtk;
-//        }else if(atk2 == 2){
-//            System.out.println("Super Hit!! \n You lost 30HP");
-//            return heroHP - (enemyAtk + 15);
-//        }else{
-//            System.out.println("You dodged enemy attack.");
-//            return 0;
-//        }
-//    }
+    public static int enemyAttack(int heroHP, int enemyAtk){
+        Random rand = new Random();
+        int condition = rand.nextInt(3);
+        if(condition == 1){
+            System.out.println("\n--------  You lost 15HP. --------\n");
+           return heroHP - enemyAtk;
+        }else if(condition == 2){
+            System.out.println("\n-------- Super Hit!! \n You lost 30HP. --------\n");
+            return heroHP - (enemyAtk + 15);
+        }else{
+            System.out.println("\n-------- You dodged enemy attack. --------\n");
+            return heroHP;
+        }
+    }
+
+
+    //////// CHARACTER CLASS
+
+
 
 }
