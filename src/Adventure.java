@@ -55,19 +55,28 @@ public class Adventure {
 
                 }else {
                     System.out.println("you gave up you coward");
-                    break;
                 }
 
                 /////// ENEMY AUTO ATTACK ////
                 heroHP = enemyAttack(heroHP, enemyAtk);
 
 
-            }while(enemyHP >= 0 || heroHP >= 0);
+            }while(enemyHP >= 0 && heroHP >= 0);
 
 
             ////// END OF GAME //////
             if(enemyHP <= 0) {
-                System.out.println("You won!!!!");
+                System.out.println(
+
+
+                        "__  __                   ___       __             \n" +
+                        "_ \\/ /_________  __      __ |     / /____________ \n" +
+                        "__  /_  __ \\  / / /      __ | /| / /_  __ \\_  __ \\\n" +
+                        "_  / / /_/ / /_/ /       __ |/ |/ / / /_/ /  / / /\n" +
+                        "/_/  \\____/\\__,_/        ____/|__/  \\____//_/ /_/ \n" +
+                        "                                                  \n");
+
+                System.out.println("\n\n\n ::Credits::\n\n Developers: \n Mark Strange \n Mitchell Arnold \n Build 1.0 \n Special thanks to the Ceres class project for giving us the idea for the game.");
             }else if(heroHP <= 0){
                 System.out.println("You died...");
             }
@@ -78,7 +87,7 @@ public class Adventure {
 
             ///// DON'T WANT TO (PLAY) ////
         } else {
-            System.out.println("Fine then. \n\n\n ::Credits::\n\n Developers: \n Mark Strange \n Mitchell Arnold \n Build 1.0 \n Special thanks to the Ceres class project for giving us the idea for the game.");
+            System.out.println("Fine then.");
         }
 
 
@@ -103,7 +112,7 @@ public class Adventure {
             System.out.println("\n--------  You lost 15HP. --------\n");
            return heroHP - enemyAtk;
         }else if(condition == 2){
-            System.out.println("\n-------- Super Hit!! \n You lost 30HP. --------\n");
+            System.out.println("\n-------- Super Hit!! -------- \n -------- You lost 30HP. --------\n");
             return heroHP - (enemyAtk + 15);
         }else{
             System.out.println("\n-------- You dodged enemy attack. --------\n");
